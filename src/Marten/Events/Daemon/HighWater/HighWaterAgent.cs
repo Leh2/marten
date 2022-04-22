@@ -96,11 +96,12 @@ namespace Marten.Events.Daemon.HighWater
                         break;
 
                     case HighWaterStatus.Stale:
+
                         var safeHarborTime = _current.Timestamp.Add(_settings.StaleSequenceThreshold);
-                        var delayTime = safeHarborTime.Subtract(statistics.Timestamp);
-                        if (delayTime.TotalSeconds > 0)
+                        if (safeHarborTime > statistics.Timestamp)
                         {
-                            await Task.Delay(delayTime, _token).ConfigureAwait(false);
+                            await Task.Delay(_settings.SlowPollingTime, _token).ConfigureAwait(false);
+                            continue;
                         }
 
                         statistics = await _detector.DetectInSafeZone(safeHarborTime, _token).ConfigureAwait(false);
