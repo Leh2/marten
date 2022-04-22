@@ -78,9 +78,9 @@ namespace Marten.Events.Daemon
         /// If the projection daemon detects a "stale" event sequence that is probably cause
         /// by sequence numbers being reserved, but never committed, this is the threshold to say
         /// "just look for the highest contiguous sequence number newer than X amount of time" to trigger
-        /// the daemon to continue advancing. The default is 3 seconds.
+        /// the daemon to continue advancing. The default is 30 seconds.
         /// </summary>
-        public TimeSpan StaleSequenceThreshold { get; set; } = 3.Seconds();
+        public TimeSpan StaleSequenceThreshold { get; set; } = 30.Seconds();
 
         /// <summary>
         /// Polling time between looking for a new high water sequence mark
