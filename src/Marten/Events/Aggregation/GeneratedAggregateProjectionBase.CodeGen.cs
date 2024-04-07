@@ -297,6 +297,9 @@ public abstract partial class GeneratedAggregateProjectionBase<T>
         _liveGeneratedType =
             assembly.AddType(_liveAggregationTypeName, liveBaseType);
 
+        Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId}:{DateTime.UtcNow.Second}: WAITING MAGIC");
+        Thread.Sleep(10000);
+
         var overrideMethodName = _isAsync ? "BuildAsync" : "Build";
         var buildMethod = _liveGeneratedType.MethodFor(overrideMethodName);
 
